@@ -19,37 +19,44 @@ Program to implement the prediction of iris species using SGD Classifier.
 Developed by: NAVEEN M
 RegisterNumber:212225230197
 
-
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import SGDClassifier
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score, classification_report
-
-iris = load_iris()
-X = iris.data
-y = iris.target
-
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-
-model = SGDClassifier(max_iter=1000, random_state=42)
-model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
-
-print("Accuracy:", accuracy_score(y_test, y_pred))
-
-print("\nClassification Report:\n", classification_report(y_test, y_pred)) 
 */
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.linear_model import SGDClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+iris = load_iris()
+df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+df['target'] = iris.target
+print(df.head())
+X = df.drop('target', axis=1)
+y = df['target']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+sgd_clf = SGDClassifier(max_iter=1000, tol=1e-3)
+sgd_clf.fit(X_train, y_train)
+y_pred = sgd_clf.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.3f}")
+cm = confusion_matrix(y_test, y_pred)
+print("Confusion Matrix:")
+print(cm)
+
+plt.figure(figsize=(6,4))
+sns.heatmap(cm, annot=True, cmap="Blues", fmt='d', xticklabels=iris.target_names, yticklabels=iris.target_names)
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.title("Confusion Matrix")
+plt.show()
 ```
 
 ## Output:
-<img width="641" height="272" alt="Screenshot 2026-05-18 152213" src="https://github.com/user-attachments/assets/6a467dd8-9558-41d0-a439-4cff656ff8ac" />
 
+<img width="782" height="391" alt="Screenshot 2026-05-18 153117" src="https://github.com/user-attachments/assets/6ace4697-24ab-4dc1-b6db-068dddce2cf0" />
+
+
+<img width="711" height="505" alt="Screenshot 2026-05-18 153130" src="https://github.com/user-attachments/assets/cc5659fa-d020-4649-8cd5-73982e1a3856" />
 
 
 ## Result:
