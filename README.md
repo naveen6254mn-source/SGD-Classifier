@@ -7,15 +7,15 @@ To write a program to predict the type of species of the Iris flower using the S
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-Load the Iris dataset and separate features and target labels.
+1.Load the Iris dataset and separate features and target labels.
 
-Standardize the feature values using StandardScaler for better model performance.
+2.Standardize the feature values using StandardScaler for better model performance.
 
-Split the dataset into training and testing sets.
+3.Split the dataset into training and testing sets.
 
-Train the SGD Classifier model using the training data.
+4.Train the SGD Classifier model using the training data.
 
-Predict test data results and evaluate accuracy with classification report.
+5.Predict test data results and evaluate accuracy with classification report.
 
 ## Program:
 ```
